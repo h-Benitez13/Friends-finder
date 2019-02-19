@@ -14,8 +14,8 @@ app.use(express.json());
 // ------------- route paths towards my other js files-------
 // give my app a 'MAP'; depending when a user visits or seeking data
 
-require("./routes/apiRoutes")(app);
-require("./routes/htmlRoutes")(app);
+require("./app/routing/apiRoutes")(app);
+require("./app/routing/htmlRoutes")(app);
 
 //--------LISTENING------
 //the application will not work if it doesnt listen to a port 

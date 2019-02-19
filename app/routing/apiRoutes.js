@@ -10,5 +10,16 @@ var matchData = require("../data/friends");
 module.exports = function(app) {
     app.get("/api/friends", function(req, res) {
         res.json(matchData);
+        
       });
+    
+    app.post("/api/friends", function (req,res){
+      if (matchData[i].score ===  req.body.score){
+        console.log("fuck yeah we got a match");
+        res.json(true);
+      } else {
+        console.log("boo we got it wrong.");
+        res.json(false);
+      }
+    })
     }

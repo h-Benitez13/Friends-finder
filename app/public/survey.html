@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Tables Page</title>
+    <title>Friends Finder</title>
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
@@ -18,9 +18,9 @@
         <hr>
         <h3>About You</h3>
         <p>Name (required)</p>
-        <input type="text" id="name" class="form-control" required>
+        <input type="text" id="friend-name" class="form-control" required>
         <p>Link to Photo (required)</p>
-        <input type="text" id="photo" class="form-control" required>
+        <input type="text" id="friend-photo" class="form-control" required>
         <hr>
         <h3>Question 1</h3>
         <h4>
@@ -195,3 +195,49 @@
 
 
 </body>
+
+</html>
+
+<script type="text/javascript">
+
+
+    $("#submit").on("click", function (event) {
+        event.preventDefault();
+
+
+        var scoreArr = [];
+        for (var i = 1; i < 11; i++) {
+            scoreArr.push(parseInt($("#q") + i).val());
+        };
+
+        var newFriend = {
+            name: $("#friend-name").val().trim(),
+            photo: $("#friend-photo").val().trim(),
+            score: scoreArr
+
+        };
+
+        console.log(newFriend);
+
+
+
+        $.post("/api/friends", newFriend)
+            .then(function (data) {
+
+                if (data) {
+                    console.log("You've successfully applied for a friend!");
+                }
+
+                else {
+                    alert("Whoops something went wrong bud...");
+                }
+
+                // Clear the form when submitting
+                $("#friend-name").val("");
+                $("#friend-photo").val("");
+
+            })
+
+    })
+
+</script>
