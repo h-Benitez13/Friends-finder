@@ -14,12 +14,26 @@ module.exports = function(app) {
       });
     
     app.post("/api/friends", function (req,res){
-      if (matchData[i].score ===  req.body.score){
-        console.log("fuck yeah we got a match");
-        res.json(true);
-      } else {
-        console.log("boo we got it wrong.");
-        res.json(false);
+      
+      console.log("here! CHECK HERE!"+ req.body.score);
+      console.log(req.body);
+      var fiend = req.body;
+
+      var totalDiff = 100;
+      var userIndex= 0;
+
+      for (var i = 0; i < matchData.length; i++) {
+          console.log(matchData[i]);
+          for (var j = 0; j< 10; j++ ) {
+            console.log(matchData[i].score);
+          }
+
+
       }
+
+
+      
+
+      
     })
     }

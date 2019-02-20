@@ -12,7 +12,7 @@ var matchingArray = [
     {
       name: "Patrick",
       photo: "https://www.google.com/imgres?imgurl=https%3A%2F%2Fvignette.wikia.nocookie.net%2Fdeadliestjokes%2Fimages%2F0%2F00%2FHow-to-draw-patrick-star-from-spongebob-squarepants.jpg%2Frevision%2Flatest%3Fcb%3D20110707080013&imgrefurl=http%3A%2F%2Fdeadliestjokes.wikia.com%2Fwiki%2FPatrick_star&docid=-6Rns9LBZQUq0M&tbnid=3psPZBvjLAbnGM%3A&vet=10ahUKEwjkk-jg9cjgAhWtm-AKHX3zDyYQMwiZASghMCE..i&w=698&h=878&bih=712&biw=1440&q=patrick&ved=0ahUKEwjkk-jg9cjgAhWtm-AKHX3zDyYQMwiZASghMCE&iact=mrc&uact=8",
-      score: [,7,3,2,5,4,1,8,9,9,4]
+      score: [1,7,3,2,5,4,1,8,9,9]
       
     },
     {
