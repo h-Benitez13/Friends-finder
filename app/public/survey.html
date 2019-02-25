@@ -25,7 +25,7 @@
         <h3>Question 1</h3>
         <h4>
             <strong>
-
+        I like short walks to the fridge...
             </strong>
         </h4>
 
@@ -43,6 +43,11 @@
             <option value="10">10 (Strongly agree)</option>
         </select>
         <h3>Question 2</h3>
+        <h4>
+                <strong>
+                    You can catch on me on the dance floor, I am the one dancing off-beat
+                </strong>
+            </h4>
 
         <select class="chosen-select " id="q2">
             <option selected>Select an option</option>
@@ -58,6 +63,11 @@
             <option value="10">10 (Strongly agree)</option>
         </select>
         <h3>Question 3</h3>
+        <h4>
+                <strong>
+            Nothing beats free tacos. NOTHING
+                </strong>
+            </h4>
 
         <select class="chosen-select " id="q3">
             <option selected>Select an option</option>
@@ -73,6 +83,12 @@
             <option value="10">10 (Strongly agree)</option>
         </select>
         <h3>Question 4</h3>
+        <h4>
+                <strong>
+            When I receive a compliment, I check behind me just in case they were talking 'past me'
+            rather than 'at me'.
+                </strong>
+            </h4>
 
         <select class="chosen-select " id="q4">
                 <option selected>Select an option</option>
@@ -88,6 +104,12 @@
             <option value="10">10 (Strongly agree)</option>
         </select>
         <h3>Question 5</h3>
+        <h4>
+                <strong>
+            If I could be recognized for anything, it would for my ability to drink all night and still
+            wake up to go to work..not all put together but just enough to clock in
+                </strong>
+            </h4>
 
         <select class="chosen-select " id="q5">
                 <option selected>Select an option</option>
@@ -103,6 +125,11 @@
                 <option value="10">10 (Strongly agree)</option>
         </select>
         <h3>Question 6</h3>
+        <h4>
+                <strong>
+            I yawn too many times throughout the day for no reason
+                </strong>
+            </h4>
 
         <select class="chosen-select " id="q6">
                 <option selected>Select an option</option>
@@ -118,6 +145,11 @@
                 <option value="10">10 (Strongly agree)</option>
         </select>
         <h3>Question 7</h3>
+        <h4>
+                <strong>
+            When I sing, people around me must be hurting
+                </strong>
+            </h4>
 
         <select class="chosen-select " id="q7">
                 <option selected>Select an option</option>
@@ -133,6 +165,12 @@
                 <option value="10">10 (Strongly agree)</option>
         </select>
         <h3>Question 8</h3>
+        <h4>
+                <strong>
+            Last name: tired, First name: I am soo damn
+           
+                </strong>
+            </h4>
 
         <select class="chosen-select " id="q8">
                 <option selected>Select an option</option>
@@ -148,6 +186,11 @@
                 <option value="10">10 (Strongly agree)</option>
         </select>
         <h3>Question 9</h3>
+        <h4>
+                <strong>
+            I laugh at my own jokes and think im soooo funny
+                </strong>
+            </h4>
 
         <select class="chosen-select " id="q9">
                 <option selected>Select an option</option>
@@ -163,6 +206,11 @@
                 <option value="10">10 (Strongly agree)</option>
         </select>
         <h3>Question 10</h3>
+        <h4>
+                <strong>
+            This homework SSUUUCCCCKKKEEDDD...it was great!
+                </strong>
+            </h4>
 
         <select class="chosen-select " id="q10">
                 <option selected>Select an option</option>
@@ -189,6 +237,26 @@
                         href="https://github.com/h-Benitez13/Friends-finder">Github Repo</a>
             </div>
         </footer>
+        <div id="resultsModal" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">This is your friend now</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    <h2 class="text-cener" id="matchName"></h2>
+                    <img class="img-fluid" id="matchImg" src = "" style= "width:250px;height:275px;" alt=""/>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
 
 
     </div>
@@ -203,11 +271,11 @@
 
     $("#submit").on("click", function (event) {
         event.preventDefault();
-
-
-
-
-        var newFriend = {
+        if (
+            $("#friend-name").val().trim() !== "" &&
+            $("#friend-photo").val().trim() !== ""
+        ) {
+            var userData = {
             name: $("#friend-name").val().trim(),
             photo: $("#friend-photo").val().trim(),
             score: [
@@ -225,31 +293,32 @@
             ]
 
         };
+        
 
 
 
+        $.post("/api/friends", userData, data => {
+            console.log("response = " + JSON.stringify(data));
+            $("#matchName").text(data.name);
+            $("#matchImg").attr("src", data.photo);
+
+            $("#resultsModal").modal("show");
+
+        });
+    } else {
+        alert("please fill out all fields before submitting");
+    }
+    return false;
+           
 
 
-        $.post("/api/friends", newFriend,
-            function (data) {
-                console.log("HERE IS WHERE IT IS");
-                console.log(data)
-                
+       
 
-                if (data) {
-                    console.log("You've successfully applied for a friend!");
-                }
-
-                else {
-                    alert("Whoops something went wrong bud...");
-                }
-
-                // Clear the form when submitting
-                $("#friend-name").val("");
-                $("#friend-photo").val("");
-
-            });
-
+    });
+    $("#close-modal").on("click", event => {
+        $.get("/", (req,res) => {
+            location.replace(res);
+        })
     })
 
 </script>

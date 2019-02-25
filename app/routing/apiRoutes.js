@@ -14,35 +14,35 @@ module.exports = function(app) {
       });
     
     app.post("/api/friends", function (req,res){
-      
-      console.log("here! CHECK HERE!"+ req.body.score);
-      console.log(req.body);
-      var fiend = req.body;
+      var newUser = req.body;
+      var userScore = newUser.score;
+      var scoreArr = [];
+      var findMatch = 0;
+      var diff = 0;
 
-      var totalDiff = 100;
-      var userIndex= 0;
+      for (var i = 0; i< matchData.length; i++ ){
+        diff = 0;
+        console.log(JSON.stringify(matchData[i]));
 
-      for (var i = 0; i < matchData.length; i++) {
-          console.log(matchData[i]);
-          for (var j = 0; j< 10; j++ ) {
-            console.log(matchData[i].score);
-            // what was suppose to go through was two loops
-            // the first loop would be to go through each of the scores for my default data
-            // as this loop goes through, my 'userscore' would be equal to zero
-            // the next loop would go through each score in my default data and compare it to the user data input
-            // subtract each score and take the absolute value 
-            // once values are obtained
-            // then will take the total sum of all the differences and compare it to the variable set to 100
-            // i would then compare the total difference compared to the 100
-            // whatever score is closest to 100, that would be the match, which would then post to my data to upload in the modal
-          }
-
+        for (var j = 0; j < userScore.length; j++ ){
+          diff += (Math.abs(parseInt(matchData[i].score[j]) - parseInt(userScore[j])));
+        }
+        scoreArr.push(diff);
 
       }
 
+      for(var i=0; i <scoreArr.length; i++) {
+        if (scoreArr[i] < scoreArr[findMatch]) {
+          findMatch = i;
+        }
+      }
 
+      var bff = matchData[findMatch];
+      res.json(bff);
       
-
+      console.log(req.body);
+      matchData.push(req.body);
+    
       
     })
     }
